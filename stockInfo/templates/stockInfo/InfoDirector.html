@@ -1,0 +1,8 @@
+{% extends 'stockInfo/base.html' %}
+{% block content %}
+	<form method ="POST" class = "stockInfoForm">{% csrf_token %}
+	    	<label for="uri">Stock Code: </label>
+	    	<input id="uri" type = "text" name ="uri"/>
+	    	<input type = "submit" value = "Search"/>
+	</form>
+{% endblock content %}

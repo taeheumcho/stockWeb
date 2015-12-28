@@ -1,0 +1,109 @@
+{%load staticfiles %}
+<html>
+	<head>
+		<title>Machine Advisor</title>
+    	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{% static 'css/stockDetail.css' %}">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>	
+		<link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">	
+		<script src="https://code.highcharts.com/stock/highstock.js"></script>
+		<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+		<script>
+			$(function chart() {
+				var code2 = document.getElelmentByID("code")
+				print(code);
+				var CartDataURL = "{% url 'stock_data_json' code}"
+				$.getJSON('http://127.0.0.1:8000/json/KS005930/', function (data) {
+			
+			    	var data_array = [];
+			    	var pattern = /(\d{4})(\d{2})(\d{2})/;
+			    	$.map(data, function(obj,i){
+			    		data_array.push([new Date(moment(obj.date,"YYYYMMDD")), parseInt(obj.currentprice)]);
+			    		}
+			    	);
+					
+			        $('#container').highcharts({
+			            chart: {
+			                zoomType: 'x'
+			            },
+			            title: {
+			                text: 'stock prices'
+			            },
+			            subtitle: {
+			                text: document.ontouchstart === undefined ?
+			                        'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+			            },
+			            xAxis: {
+			                type: 'datetime'
+			            },
+			            yAxis: {
+			                title: {
+			                    text: 'stock prices'
+			                }
+			            },
+			            legend: {
+			                enabled: false
+			            },
+			            plotOptions: {
+			                area: {
+			                    fillColor: {
+			                        linearGradient: {
+			                            x1: 0,
+			                            y1: 0,
+			                            x2: 0,
+			                            y2: 1
+			                        },
+			                        stops: [
+			                            [0, Highcharts.getOptions().colors[0]],
+			                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+			                        ]
+			                    },
+			                    marker: {
+			                        radius: 2
+			                    },
+			                    lineWidth: 1,
+			                    states: {
+			                        hover: {
+			                            lineWidth: 1
+			                        }
+			                    },
+			                    threshold: null
+			                }
+			            },
+
+			            series: [{
+			                type: 'area',
+			                name: 'closing price',
+			                data: data_array
+			            }]
+			        });
+			    });
+			});
+	</script>
+
+
+	</head>
+
+	<body>
+		{% if user.is_authenticated %}
+    		<a href="/" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+		{% endif %}
+        <div class = "page-header"> 	
+        	<h1><a href="/">KIRUDA MACHINE ADVISOR</a></h1>
+        </div>
+        
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
+        	<p id = "code"> {{code}} </p>
+        </div>
+		 
+		
+		<script>
+			var code = {{ code|safe}};
+			chart();
+		</script>
+					    
+	</body>
+</html>
+
+
