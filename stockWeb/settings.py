@@ -78,12 +78,7 @@ WSGI_APPLICATION = 'stockWeb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'kirudadb',
-        'USER': 'admin',
-        'PASSWORD':'1qaz2wsx',
-        'HOST':'kirudadb.c5rq93advanj.us-west-2.rds.amazonaws.com',
-        'PORT':'3306',
+
     }
 }
 
