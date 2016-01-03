@@ -28,4 +28,4 @@ def stockHome(request):
 
 def backTestHome(request):
     
-    return render(request, 'stockInfo/backTestHome.html')
+    return render(request, 'stockInfo/backTest.html')
