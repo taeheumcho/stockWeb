@@ -31,11 +31,5 @@ def stockHome(request):
 
 
 def backTestHome(request):
-    assets = []
-    assets[0] = {'code': 'FX_USDKRW', 'name':'USDKRW', 'currentPrice': tmpFX[len(tmpFX) - 1]['value'], 'type': 'FX'}
-    assets[1] = {'code': 'KOSPI', 'name':'KOSPI', 'currentPrice': tmpKOSPI[len(tmpKOSPI) - 1]['value'], 'type': 'Index'}
-    assets[2] = {'code': 'KOSDAQ', 'name':'KOSDAQ', 'currentPrice': tmpKOSDAQ[len(tmpKOSDAQ) - 1]['value'], 'type': 'Index'}
-    assets[3] = {'code': 'KS005930', 'name':'SAMSUNG ELECTRONICS', 'currentPrice': 1235410, 'type': 'stock'}
-    
-    
-    return render(request, 'stockInfo/backTest.html', {'asset':assets})
+   
+    return render(request, 'stockInfo/backTest.html')
