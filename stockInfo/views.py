@@ -8,7 +8,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.context import RequestContext
 from django.template.context_processors import request
 import pdb
-from stockInfo.models import CcImsiData, ImsiIndexData
+from stockInfo.models import CcImsiData, ImsiIndexData, ZzImsiSisae
+from django.db import models
 
 tmpFX = []
 tmpKOSPI = []
@@ -31,5 +32,7 @@ def stockHome(request):
 
 
 def backTestHome(request):
-   
-    return render(request, 'stockInfo/backTest.html')
+
+    tmpSisae = ZzImsiSisae.objects.filter(code__contains='KS', currentprice__gte='100000', date = '20150708')
+    return render(request, 'stockInfo/backTest.html', {'sisae': tmpSisae})   
+    

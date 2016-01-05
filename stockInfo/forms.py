@@ -15,3 +15,8 @@ class stockSisaeForm(forms.ModelForm):
     class Meta:
         model = ZzImsiSisae
         fields = ('code','date','currentprice',)
+        
+class assetSelection(forms.ModelForm):
+    class Meta:
+        model = ZzImsiSisae
+        fields = ('code',)
