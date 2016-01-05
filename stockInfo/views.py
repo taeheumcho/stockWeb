@@ -7,11 +7,15 @@ from django.http.response import HttpResponseRedirect, JsonResponse, \
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.context import RequestContext
 from django.template.context_processors import request
-
+import pdb
 from stockInfo.models import CcImsiData, ImsiIndexData
 
+tmpFX = []
+tmpKOSPI = []
+tmpKOSDAQ = []
 def stockHome(request):       
     tmpFX = CcImsiData.objects.filter(code = 'FX_USDKRW').values('date','value').order_by('date')
+#     pdb.set_trace()
     closestdate_FX = tmpFX[len(tmpFX) - 1]['value']
     
     tmpKOSPI = ImsiIndexData.objects.filter(code = 'KOSPI').values('date','value').order_by('date')
@@ -27,5 +31,11 @@ def stockHome(request):
 
 
 def backTestHome(request):
+    assets = []
+    assets[0] = {'code': 'FX_USDKRW', 'name':'USDKRW', 'currentPrice': tmpFX[len(tmpFX) - 1]['value'], 'type': 'FX'}
+    assets[1] = {'code': 'KOSPI', 'name':'KOSPI', 'currentPrice': tmpKOSPI[len(tmpKOSPI) - 1]['value'], 'type': 'Index'}
+    assets[2] = {'code': 'KOSDAQ', 'name':'KOSDAQ', 'currentPrice': tmpKOSDAQ[len(tmpKOSDAQ) - 1]['value'], 'type': 'Index'}
+    assets[3] = {'code': 'KS005930', 'name':'SAMSUNG ELECTRONICS', 'currentPrice': 1235410, 'type': 'stock'}
     
-    return render(request, 'stockInfo/backTest.html')
+    
+    return render(request, 'stockInfo/backTest.html', {'asset':assets})
