@@ -32,37 +32,32 @@
 	                    <div class="clearfix"></div>
 	                </div>
 					<div class="x_content" style ="display: block;">
-	                         <table id = "example" class="table table-striped responsive-utilities jambo_table">
-    	                         <thead>
-        	                         <tr class="headings">
-            	                         <th>
-                	                         <input type="checkbox" id="check-all" class="tableflat">
-                                         </th>
-                                         <th class="column-title">Code </th>
-                                         <th class="column-title">Asset Name</th>
-                                         <th class="column-title">Current Price </th>
-                                         
-                                        
-                    	            </tr>
-                            	</thead>
-	                           	<tbody>
-	                           		<from method = "GET" class = "assetSelection">
-	                           		{% for object in sisae %}
-		                           		<tr class="even pointer">
-			                            	<td class="a-center "><input type="checkbox"  name="stockCodes" class="tableflat"  value ={{object.code}}></td>
-			                                <td class=" " name="stockcode">{{object.code}}</td>
-			                                <td class=" ">{{object.code}}</td>
-			                                <td class=" ">{{object.currentprice}} </td>
-			                             </tr>
-			                             
-	                           		{% endfor %}
-	                           		</from>
-	                   			</tbody>
-                       		</table>
-						</div>
+                         <table id = "example" class="table table-striped responsive-utilities jambo_table">
+   	                         <thead>
+       	                         <tr class="headings">
+           	                         <th>
+               	                         <input type="checkbox" id="check-all" class="tableflat">
+                                        </th>
+                                        <th class="column-title">Code </th>
+                                        <th class="column-title">Asset Name</th>
+                                        <th class="column-title">Current Price </th>
+                   	            </tr>
+                           	</thead>
+                           	<tbody>
+                           		
+                           		{% for object in sisae %}
+	                           		<tr class="even pointer">
+		                            	<td class="a-center "><input type="checkbox"  name="stockCodes" class="tableflat"  value ={{object.code}}></td>
+		                                <td class=" " name="stockcode">{{object.code}}</td>
+		                                <td class=" ">{{object.code}}</td>
+		                                <td class=" ">{{object.currentprice}} </td>
+		                             </tr>
+                           		{% endfor %}
+                   			</tbody>
+                      	</table>
 					</div>
 				</div>
-			
+			</div>
 			
 			<div class = "col-md-6 col-sm-12 col-xs-12">
 				<div class ="x_panel">
@@ -75,19 +70,27 @@
                         	<div class="col-md-3">
                             	<div id="reportrange_right" class="pull-left" style="background: #fff; width: 300px; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
                                 	<i class="glyphicon glyphicon-calendar fa fa-calendar"> Training Period: </i>
-                                    <span>June 23, 2014 - July 08, 2015</span> <b class="caret"></b>
+                                	<form action = "." method = "POST" class = "DateRangeForm">
+                                		<span value="{{range}}" name="range"></span>
+                                    <b class="caret"></b>
+                                    </input>
+                                    
                                 </div>
                             </div>
                             <div class="col-md-9">
                             	<div id="reportrange" class="pull-right" style="background: #fff; width: 300px; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
                                 	<i class="glyphicon glyphicon-calendar fa fa-calendar"> Test Period: </i>
-                                    <span>Jun 23, 2014 - July 08, 2015</span> <b class="caret"></b>
+                                    <form action = "." method = "POST">
+                                		<span value="{{range}}" name="range"></span>
+                                    <b class="caret"></b>
+                                    </input>
                                 </div>
                             </div>
                         </div>
 					</div>
 				</div>
 			</div>
+			
 			<div class = "col-md-6 col-sm-12 col-xs-12">
 				<div class ="x_panel">
 					<div class="x_title">
@@ -161,12 +164,15 @@
                            </form>
 					    </div>
 					    <br></br>
-						<span style="float:right">
-							<button type="button" class="btn btn-primary">Learn and Show Results</button>
-						</span>
+						
 					</div>
 				</div>
 			</div>
+			
+			<span style="float:right">
+				<br> </br>
+				<button type="submit" class="btn btn-primary">Learn and Show Results</button>
+			</span>
 		</div>
 	</div>
 
@@ -199,10 +205,10 @@
             var optionSet1 = {
                 startDate: moment().subtract(29, 'days'),
                 endDate: moment(),
-                minDate: '06/23/2014',
-                maxDate: '07/08/2015',
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
                 dateLimit: {
-                    days: 60
+                    days: 10000000
                 },
                 showDropdowns: true,
                 showWeekNumbers: true,
@@ -279,10 +285,10 @@
             var optionSet1 = {
                 startDate: moment().subtract(29, 'days'),
                 endDate: moment(),
-                minDate: '06/23/2014',
-                maxDate: '07/08/2015',
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
                 dateLimit: {
-                    days: 60
+                	days: 10000000
                 },
                 showDropdowns: true,
                 showWeekNumbers: true,
@@ -428,11 +434,11 @@
               });
           });
       </script>
-      <script type="text/javascript">
+    <script type="text/javascript">
 	  	$(document).ready(function () {
 			$(".panel-title").click(function() {
 	    	$(this).children().children().prop("checked", true);
 			});
 	   	});
-	  </script>
+	</script>
 {% endblock %}

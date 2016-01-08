@@ -6,10 +6,13 @@ from django.http.response import HttpResponseRedirect, JsonResponse, \
     HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.context import RequestContext
-from django.template.context_processors import request
+from django.template.context_processors import request, csrf
 import pdb
 from stockInfo.models import CcImsiData, ImsiIndexData, ZzImsiSisae
 from django.db import models
+from stockInfo.forms import DateRangeForm
+from pytz import timezone
+from IPython.core.debugger import Pdb
 
 tmpFX = []
 tmpKOSPI = []
@@ -32,7 +35,23 @@ def stockHome(request):
 
 
 def backTestHome(request):
+    if request.method == "POST":
+        date_range = request.POST['date_range']
+        start_date_string = date_range.split(' - ')[0]
+        end_date_string = date_range.split(' - ')[1]
+        print(start_date_string)
+        f = DateRangeForm(request.POST)
+        pdb.set_trace()
+        if f.is_valid():
+            c = f.save(commit = False)
+            c.end_date = timezone.now()
+            c.save()
+            pdb.set_trace()
+    else:
+        tmpSisae = ZzImsiSisae.objects.filter(code__contains='KS', currentprice__gte='100000', date = '20150708')
+        return render(request, 'stockInfo/backTest.html', {'sisae': tmpSisae}) 
+
 
     tmpSisae = ZzImsiSisae.objects.filter(code__contains='KS', currentprice__gte='100000', date = '20150708')
-    return render(request, 'stockInfo/backTest.html', {'sisae': tmpSisae})   
+    return render(request, 'stockInfo/backTest.html', {'sisae': tmpSisae, 'form': f})   
     
