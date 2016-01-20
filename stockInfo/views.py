@@ -14,6 +14,13 @@ from stockInfo.forms import DateRangeForm
 from pytz import timezone
 from IPython.core.debugger import Pdb
 import datetime
+from engine.strategy.ProcessInfo import ProcessInfo
+from util.time.calendar.SouthKoreaCalendar import SouthKoreaCalendar
+from engine.strategy.Engine import AbstractEngine
+from engine.strategy.Strategy import AbstractStrategy
+from engine.strategy.Asset import Cash, Equity
+from util.TypeDef import TypeDef
+from util.time.Date import Date
 
 tmpFX = []
 tmpKOSPI = []
@@ -68,18 +75,34 @@ def results(request):
     test_start_date_string = test_range.split(' - ')[0]
     test_end_date_string = test_range.split(' - ')[1]
     
-    training_start_date = datetime.datetime.strptime(training_start_date_string,"%b %d, %Y").strftime("%Y%m%d")
-    training_end_date = datetime.datetime.strptime(training_end_date_string,"%b %d, %Y").strftime("%Y%m%d")
-    test_start_date = datetime.datetime.strptime(test_start_date_string,"%b %d, %Y").strftime("%Y%m%d")
-    test_end_date = datetime.datetime.strptime(test_end_date_string,"%b %d, %Y").strftime("%Y%m%d")
+    training_start_date = Date.valueOf(datetime.datetime.strptime(training_start_date_string,"%b %d, %Y").strftime("%Y%m%d"))
+    training_end_date = Date.valueOf(datetime.datetime.strptime(training_end_date_string,"%b %d, %Y").strftime("%Y%m%d"))
+    test_start_date = Date.valueOf(datetime.datetime.strptime(test_start_date_string,"%b %d, %Y").strftime("%Y%m%d"))
+    test_end_date = Date.valueOf(datetime.datetime.strptime(test_end_date_string,"%b %d, %Y").strftime("%Y%m%d"))
         
     asset_list_string = request.POST['assets']
     
     training_period = [training_start_date, training_end_date]
     test_period = [test_start_date, test_end_date]
     asset_list = asset_list_string.split('|')
+#     asset_list = ["KS005930","KS008770" ]
     strategy_Num = request.POST['strategy']
-    timeLag = request.POST['timelag']
+    timeLag = (int)(request.POST['timelag'])
+    calendar = SouthKoreaCalendar.getCalendar(1)
+    processInfo = ProcessInfo(training_period[0], training_period[1], test_period[0], test_period[1], timeLag, calendar, None)
+    cash = Cash("cash", "cashCode")
+    assets = {}
+    for i in range(0,len(asset_list)):
+        name = "stock_"+'i'+"_num"
+        code = asset_list[i]
+        code = code.encode('ascii','ignore')
+        type = TypeDef.EquityType.STOCK
+        assets[code] = Equity(name, code, type)
+        
+    strategy = AbstractStrategy()
+#     pdb.set_trace()
+    engine = AbstractEngine(assets, strategy, processInfo)
+    portfolios = engine.generate()
     
-    return render(request, 'stockInfo/strategyResults.html', {'train':training_period, 'test':test_period, 'assets':asset_list, 'strategy':strategy_Num, 'timeLag':timeLag})
+    return render(request, 'stockInfo/strategyResults.html', {'train':training_period, 'test':test_period, 'assets':asset_list, 'strategy':strategy_Num, 'timeLag':timeLag, 'pfo': portfolios})
 
