@@ -12,7 +12,6 @@ from stockInfo.models import CcImsiData, ImsiIndexData, ZzImsiSisae
 from django.db import models
 from stockInfo.forms import DateRangeForm
 from pytz import timezone
-from IPython.core.debugger import Pdb
 import datetime
 from engine.strategy.ProcessInfo import ProcessInfo
 from util.time.calendar.SouthKoreaCalendar import SouthKoreaCalendar
