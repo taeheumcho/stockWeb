@@ -10,6 +10,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.stockHome, name='stockHome'),
     url(r'^backtest/$', views.backTestHome, name='backtest'),
+    url(r'^backtest/results/$', views.results, name='strategyResults'),
 #     url(r'^(?P<code>\w+)/$', views.stock_detail, name = 'stock_detail'),
 #     url(r'^(?P<code>\w+)/$', views.stock_detail2, name = 'detail_imsi'),
 #     url(r'^(?P<code>\w+)/$', views.ahomorgetta.stock_detail_class, name = 'chartdetailwithclass'),

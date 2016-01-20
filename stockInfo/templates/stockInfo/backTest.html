@@ -1,4 +1,5 @@
 {% extends 'stockInfo/base.html' %}
+
 {%load static %}
 	{% block head %}
 		<!-- Custom styling plus plugins -->
@@ -17,165 +18,192 @@
 	<div class ="right_col" role="main">
 		<div class = "x_panel">
 				<div class="x_title">
-	                	<h2>Construct ETF Portfolio <small>Algorithmic strategy with Machine Advisor</small></h2>
-	                    <ul class="nav navbar-right panel_toolbox">
-	                    	<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-	                        </li>
-	                    </ul>
-	                    <div class="clearfix"></div>
-	                </div>
-			<div class = "col-md-6 col-sm-12 col-xs-12">
-				<div class ="x_panel">
-					<div class="x_title">
-	                	<h2>Select Asset <small>ETF portfolio</small></h2>
-	                  
-	                    <div class="clearfix"></div>
-	                </div>
-					<div class="x_content" style ="display: block;">
-                         <table id = "example" class="table table-striped responsive-utilities jambo_table">
-   	                         <thead>
-       	                         <tr class="headings">
-           	                         <th>
-               	                         <input type="checkbox" id="check-all" class="tableflat">
-                                        </th>
-                                        <th class="column-title">Code </th>
-                                        <th class="column-title">Asset Name</th>
-                                        <th class="column-title">Current Price </th>
-                   	            </tr>
-                           	</thead>
-                           	<tbody>
-                           		
-                           		{% for object in sisae %}
-	                           		<tr class="even pointer">
-		                            	<td class="a-center "><input type="checkbox"  name="stockCodes" class="tableflat"  value ={{object.code}}></td>
-		                                <td class=" " name="stockcode">{{object.code}}</td>
-		                                <td class=" ">{{object.code}}</td>
-		                                <td class=" ">{{object.currentprice}} </td>
-		                             </tr>
-                           		{% endfor %}
-                   			</tbody>
-                      	</table>
+                	<h2>Construct ETF Portfolio <small>Algorithmic strategy with Machine Advisor</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                    	<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+	        <div class="form-group">
+				<div class = "col-md-6 col-sm-12 col-xs-12">
+					<div class ="x_panel">
+						<div class="x_title">
+		                	<h2>Select Asset <small>ETF portfolio</small></h2>
+		                  
+		                    <div class="clearfix"></div>
+		                </div>
+						<div class="x_content" style ="display: block;">
+	                         <table id = "example" class="table table-striped responsive-utilities jambo_table">
+	   	                         <thead>
+	       	                         <tr class="headings">
+	           	                         <th>
+	               	                         <input type="checkbox" id="check-all" class="tableflat">
+	                                        </th>
+	                                        <th class="column-title">Code </th>
+	                                        <th class="column-title">Asset Name</th>
+	                                        <th class="column-title">Current Price </th>
+	                   	            </tr>
+	                           	</thead>
+	                           	<tbody>
+	                           		
+	                           		{% for object in sisae %}
+		                           		<tr class="even pointer">
+			                            	<td class="a-center "><input type="checkbox"  name="stockCodes" class="tableflat"  value ={{object.code}}></td>
+			                                <td class=" " name="stockcode">{{object.code}}</td>
+			                                <td class=" ">{{object.code}}</td>
+			                                <td class=" ">{{object.currentprice}} </td>
+			                             </tr>
+	                           		{% endfor %}
+	                   			</tbody>
+	                      	</table>
+						</div>
 					</div>
 				</div>
 			</div>
 			
-			<div class = "col-md-6 col-sm-12 col-xs-12">
-				<div class ="x_panel">
-					<div class="x_title">
-	                	<h2>Set data period <small>Training/Test Period</small></h2>
-	                    <div class="clearfix"></div>
-		            </div>
-					<div class="x_content" style ="display: block;">
-				    	<div class="well" style="overflow: auto">
-                        	<div class="col-md-3">
-                            	<div id="reportrange_right" class="pull-left" style="background: #fff; width: 300px; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                                	<i class="glyphicon glyphicon-calendar fa fa-calendar"> Training Period: </i>
-                                	<form action = "." method = "POST" class = "DateRangeForm">
-                                		<span value="{{range}}" name="range"></span>
-                                    <b class="caret"></b>
-                                    </input>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                            	<div id="reportrange" class="pull-right" style="background: #fff; width: 300px; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                                	<i class="glyphicon glyphicon-calendar fa fa-calendar"> Test Period: </i>
-                                    <form action = "." method = "POST">
-                                		<span value="{{range}}" name="range"></span>
-                                    <b class="caret"></b>
-                                    </input>
-                                </div>
-                            </div>
-                        </div>
+			<div id="time-period" class="form-group">
+				<div class = "col-md-6 col-sm-12 col-xs-12">
+					<div class ="x_panel">
+						<div class="x_title">
+		                	<h2>Set data period <small>Training/Test Period</small></h2>
+		                    <div class="clearfix"></div>
+			            </div>
+						<div class="x_content" style ="display: block;">
+					    	<div class="well" style="overflow: auto">
+	                        	<div class="col-md-3">
+	                            	<div id="reportrange_right" class="pull-left" style="background: #fff; width: 300px; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+	                                	<i class="glyphicon glyphicon-calendar fa fa-calendar"> Training Period: </i>
+	                                		<span></span>
+	                                    <b class="caret"></b>
+	                                </div>
+	                            </div>
+	                            <div class="col-md-9">
+	                            	<div id="reportrange" class="pull-right" style="background: #fff; width: 300px; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+	                                	<i class="glyphicon glyphicon-calendar fa fa-calendar"> Test Period: </i>
+	                                		<span></span>
+	                                    <b class="caret"></b>
+	                                </div>
+	                            </div>
+	                        </div>
+						</div>
+						<div class="x_content" style ="display: block;">
+							<div class="well" style="overflow: auto">
+								<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-3">Time Lag</label>
+									<div id="timelag" class="col-md-4 col-sm-9 col-xs-9">
+										<input type="text" class="form-control">	
+										<span class="form-control-feedback right" area-hidden="true">days</span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			</div>	
 			
-			<div class = "col-md-6 col-sm-12 col-xs-12">
-				<div class ="x_panel">
-					<div class="x_title">
-	                	<h2>Select Strategy <small>Machine Advisor's algorithmic strategy</small></h2>  
-	                    <div class="clearfix"></div>
-		            </div>
-					<div class="x_content" style ="display: block;">
-				    	<div class="well">
-                           	<form class="form-horizontal">
-                               	<fieldset>
-                                   	<div class="control-group">
-                                       	<div class="controls">
-											<div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
-												<div class="panel">
-		                                            <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-		                                                <h4 class="panel-title" id ="panel-title">
-			                                                <label for="internet-banking">
-									                            <input type="radio" name="paymentmethod" value="internet-banking"> Collapsible Group Items #2
-									                        </label>
-								                        </h4>
-		                                            </a>
-		                                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-		                                                <div class="panel-body">
-		                                                    <p>
-		                                                    	<strong>Collapsible Item 2 data</strong>
-		                                                    </p>
-		                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-		                                                </div>
-		                                            </div>
+			<div class="form-group">
+				<div class = "col-md-6 col-sm-12 col-xs-12">
+					<div class ="x_panel">
+						<div class="x_title">
+		                	<h2>Select Strategy <small>Machine Advisor's algorithmic strategy</small></h2>  
+		                    <div class="clearfix"></div>
+			            </div>
+						<div class="x_content" style ="display: block;">
+					    	<div class="well">
+	                           	<form class="form-horizontal">
+	                               	<fieldset>
+	                                   	<div id = "strategyNum" class="control-group">
+	                                       	<div class="controls">
+												<div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+													<div class="panel">
+			                                            <a class="panel-heading collapsed" role="tab" id="zero" aria-expanded="false" aria-controls="collapseOne">
+			                                                <h4 class="panel-title" id ="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" >
+				                                                <label for="strategyMethods">
+										                            <input type="radio" name="strategy" value="0"> CAPM long short
+										                        </label>
+									                        </h4>
+			                                            </a>
+			                                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="zero">
+			                                                <div class="panel-body">
+			                                                    <p>
+			                                                    	<strong>CAPM long short</strong>
+			                                                    </p>
+			                                                    Using CAPM, get all beta values of assets which you selected then generate "Alpha".
+			                                                </div>
+			                                            </div>
+		                                        	</div>
+			                                        <div class="panel">
+			                                            <a class="panel-heading collapsed" role="tab" id="one"  aria-expanded="false" aria-controls="collapseTwo">    
+			                                                 <h4 class="panel-title" type = "radio" id ="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" >
+				                                                <label for="strategyMethods">
+										                            <input type="radio" name="strategy" value="1"> Pair Trading
+										                        </label>
+									                        </h4>
+			                                            </a>                                          
+			                                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="one">
+			                                                <div class="panel-body">                                                
+			                                                    <p><strong>Pair Trading</strong>
+			                                                    </p>
+			                                                    Find decoupling assets in the assets you selected and do pair trading.
+			                                                </div>
+			                                            </div>
+			                                        </div>
+			                                        <div class="panel">			                                         
+			                                            <a class="panel-heading collapsed" role="tab" id="two" aria-expanded="false" aria-controls="collapseThree">    
+			                                                 <h4 class="panel-title" id ="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+				                                                <label for="strategyMethods">
+										                        	<input type="radio" name="strategy" value="2"> Image Trading
+										                        </label>
+									                        </h4>
+			                                            </a>      
+			                                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="two">
+			                                                <div class="panel-body">                                                
+			                                                    <p><strong>Image Trading</strong>
+			                                                    </p>
+			                                                    Learn the movements of assets you selected and find out which regime the assets are in.
+			                                                </div>
+			                                            </div>
+			                                        </div>
 	                                        	</div>
-		                                        <div class="panel">
-		                                            <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">    
-		                                                 <h4 class="panel-title" id ="panel-title">
-			                                                <label for="internet-banking">
-									                            <input type="radio" name="paymentmethod" value="cardcard"> Markowiz Portfolio Strategy
-									                        </label>
-								                        </h4>
-		                                            </a>                                          
-		                                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-		                                                <div class="panel-body">                                                
-		                                                    <p><strong>Markowiz Portfolio Strategy</strong>
-		                                                    </p>
-		                                                    Using optimization skills, construct efficient frontier and get the portfolio strategy with regarding to the preference of risk in the market place
-		                                                </div>
-		                                            </div>
-		                                        </div>
-		                                        <div class="panel">
-		                                            <a class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">    
-		                                                 <h4 class="panel-title" id ="panel-title">
-			                                                <label for="internet-banking">
-									                            <input type="radio" name="paymentmethod" value="cardcard"> Collapsible Group Items #1
-									                        </label>
-								                        </h4>
-		                                            </a>                                          
-		                                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-		                                                <div class="panel-body">                                                
-		                                                    <p><strong>Collapsible Item 1 data</strong>
-		                                                    </p>
-		                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor
-		                                                </div>
-		                                            </div>
-		                                        </div>
-                                        	</div>
-                                        	
-                                        </div>
-                                       
-                                    </div>
-                                    
-                               </fieldset>
-                                
-                           </form>
-					    </div>
-					    <br></br>
-						
+	                                        	
+	                                        </div>
+	                                       
+	                                    </div>
+	                                    
+	                               </fieldset>
+	                                
+	                           </form>
+						    </div>
+						</div>
 					</div>
 				</div>
 			</div>
 			
-			<span style="float:right">
+			<div class = "col-md-6 col-sm-12 col-xs-12" >
 				<br> </br>
-				<button type="submit" class="btn btn-primary">Learn and Show Results</button>
-			</span>
+				<div class = "pull-right">
+					<button type="button" class="btn btn-primary" onclick="submit();">
+						<span class="fa fa-calculator" aria-hidden = "true">
+							Get My Portfolio Construction
+						</span>
+			   	 	</button>	
+				</div>
+			</div>
+			<div style="visibility:hidden; display:none">
+				<form id="form_report" action ="{% url 'strategyResults'%}" method ="POST"> {% csrf_token %}
+					<input id="input_assets" name = "assets">
+					<input id="input_training" name = "training">
+					<input id="input_test" name = "test">
+					<input id="input_timelag" name = "timelag">
+					<input id="input_strategy" name = "strategy">
+				</form>
+			</div>
 		</div>
 	</div>
+	
 
+   
 {% endblock %}
 
 {% block scripts %}
@@ -189,6 +217,7 @@
     <script src="{% static 'js/icheck/icheck.min.js' %}"></script>
 
     <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'scripts/strategySettings.js' %}"></script>
     <!-- datepicker -->
     <script type="text/javascript" src="{% static 'js/moment.min2.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/datepicker/daterangepicker.js' %}"></script>
@@ -441,4 +470,5 @@
 			});
 	   	});
 	</script>
+	
 {% endblock %}
