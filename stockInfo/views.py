@@ -58,11 +58,11 @@ def backTestHome(request):
             pdb.set_trace()
     else:
         tmpSisae = ZzImsiSisae.objects.filter(code__contains='KS', currentprice__gte='100000', date = '20150708')
-        return render(request, 'stockInfo/backTest.html', {'sisae': tmpSisae}) 
+        return render(request, 'stockInfo/dataCollector.html', {'sisae': tmpSisae}) 
 
 
     tmpSisae = ZzImsiSisae.objects.filter(code__contains='KS', currentprice__gte='100000', date = '20150708')
-    return render(request, 'stockInfo/backTest.html', {'sisae': tmpSisae, 'form': f})   
+    return render(request, 'stockInfo/dataCollector.html', {'sisae': tmpSisae, 'form': f})   
     
 def results(request):
     

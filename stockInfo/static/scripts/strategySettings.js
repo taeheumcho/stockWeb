@@ -3,7 +3,7 @@
 function submit() {
        
     asset_data = $('#example').find('tbody tr')
-    period_data = $('#time-period').find('span')
+    period_data = $('#step-2').find('span')
     timelag=$('#timelag').find('input').val()
     strategyNum = $('#strategyNum').find('h4')
     port_param = ''
@@ -16,32 +16,6 @@ function submit() {
     	return;
     }
     
-    
-//    // verification 일단 생략
-//    if (trs.length == 0) {
-//        alert('포트폴리오 바구니에 종목을 추가하세요.');
-//        return;
-//    }
-//        
-//    if (!validate_date($('#input-initial-date').val())) {
-//        alert('날짜 형식이 맞지 않습니다. ' + $('#input-initial-date').val());
-//        return;
-//    }
-
-//    // wgt 재세팅
-//    weight_sum = 0.
-//    for (i = 0; i < trs.length ; i++) {
-//        tds = $(trs[i]).find('td')
-//        if ($(tds[3]).find('input').val() == ''){
-//            $(tds[3]).find('input').val(1)
-//        }
-//        weight_sum = weight_sum + parseFloat($(tds[3]).find('input').val())
-//        console.log($(tds[3]).find('input').val())
-//    }
-//    for (i = 0; i < trs.length ; i++) {
-//        tds = $(trs[i]).find('td')
-//        $(tds[3]).find('input').val(Math.round(100*parseFloat($(tds[3]).find('input').val()) / weight_sum))
-//    }
     assetcode = []
     for (i = 0 ; i < asset_data2.length; i++){
     	asset_code_imsi = $(asset_data2[i]).find('input')
